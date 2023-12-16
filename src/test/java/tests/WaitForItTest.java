@@ -1,3 +1,5 @@
+package tests;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -10,12 +12,11 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-import java.util.List;
 
-public class WaitForMinionsTest {
+public class WaitForItTest {
 
     private WebDriver driver;
-    private final String BASE_URL = "http://localhost/minions.php";
+    private String BASE_URL = "http://localhost/waitforit.php";
 
     @Before
     public void setUp() {
@@ -25,17 +26,22 @@ public class WaitForMinionsTest {
     }
 
     @Test
-    public void waitForMinions() {
-        int minionCount = 5;
-        driver.findElement(By.xpath("//input[@type='number']")).sendKeys(String.valueOf(minionCount));
-        driver.findElement(By.xpath("//button[contains(@class, 'btn-warning')]")).click();
-
+    public void waitForInputText() {
+        driver.findElement(By.id("startWaitForText")).click();
         new WebDriverWait(driver, Duration.ofSeconds(10))
-                .withMessage("Timeout waiting for number of elements to be " + minionCount)
-                .until(ExpectedConditions.numberOfElementsToBe(By.xpath("//div[@class='minions']//img"), minionCount));
-        List<WebElement> allMinions = driver.findElements(By.xpath("//div[@class='minions']//img"));
-        Assert.assertEquals(minionCount, allMinions.size());
+                .until(ExpectedConditions.attributeToBe(By.id("waitForTextInput"), "value", "dary !!!"));
 
+        System.out.println(driver.findElement(By.id("waitForTextInput")).getAttribute("value"));
+    }
+
+    @Test
+    public void waitForClass() {
+        WebElement button = driver.findElement(By.id("startWaitForProperty"));
+        button.click();
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.attributeContains(By.id("waitForProperty"), "class", "error"));
+
+        Assert.assertFalse(button.isEnabled());
     }
 
     @After
