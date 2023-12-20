@@ -1,5 +1,6 @@
 package tests;
 
+import enumerators.SinType;
 import models.Sin;
 import org.junit.After;
 import org.junit.Before;
@@ -20,7 +21,7 @@ public class SinCityTest {
     private WebElement submitButton;
 
     private final String BASE_URL = "http://localhost/sincity.php";
-    
+
     @Before
     public void setUp() {
         System.setProperty("webdriver.chrome.driver", "src/test/resources/drivers/chromedriver.exe");
@@ -38,7 +39,7 @@ public class SinCityTest {
         Sin spiderSin = new Sin("I killed a spider", "Matty", "I stomp on him");
         fillDataAndSubmit(spiderSin);
 
-        spiderSin.setTags(List.of("robbery", "murder", "car accident", "hijack", "blackmail"));
+        spiderSin.setTags(List.of(SinType.MURDER, SinType.BLACKMAIL, SinType.ROBBERY));
         markTags(spiderSin.getTags());
     }
 
@@ -54,9 +55,9 @@ public class SinCityTest {
 //        submitButton.click();
     }
 
-    public void markTags(List<String> tags) {
-        for (String tag : tags) {
-            driver.findElement(By.xpath("//input[@value='"+tag+"']")).click();
+    public void markTags(List<SinType> tags) {
+        for (SinType tag : tags) {
+            driver.findElement(By.xpath("//input[@value='"+tag.getXpathValue()+"']")).click();
         }
     }
 }

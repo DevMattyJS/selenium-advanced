@@ -1,5 +1,7 @@
 package models;
 
+import enumerators.SinType;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +10,7 @@ public class Sin {
     private String title;
     private String author;
     private String message;
-    private List<String> tags;
+    private List<SinType> tags;
 
     public Sin(String title, String author, String message) {
         this.title = title;
@@ -29,11 +31,11 @@ public class Sin {
         return message;
     }
 
-    public List<String> getTags() {
+    public List<SinType> getTags() {
         return tags;
     }
 
-    public void setTags(List<String> tags) {
+    public void setTags(List<SinType> tags) {
         this.tags = tags;
     }
 }
