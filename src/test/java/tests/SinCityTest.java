@@ -1,51 +1,34 @@
 package tests;
 
+import base.TestBase;
 import enumerators.SinType;
 import models.Sin;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.util.List;
 
-public class SinCityTest {
+public class SinCityTest extends TestBase {
 
-    private WebDriver driver;
     private WebElement titleField;
     private WebElement authorField;
     private WebElement messageField;
     private WebElement submitButton;
 
-    private final String BASE_URL = "http://localhost/sincity.php";
-
-    @Before
-    public void setUp() {
-        System.setProperty("webdriver.chrome.driver", "src/test/resources/drivers/chromedriver.exe");
-        driver = new ChromeDriver();
-        driver.get(BASE_URL);
+    @Test
+    public void testNewSin() {
+        driver.get(BASE_URL + "sincity.php");
         titleField = driver.findElement(By.name("title"));
         authorField = driver.findElement(By.name("author"));
         messageField = driver.findElement(By.name("message"));
         submitButton = driver.findElement(By.xpath("//form/button"));
 
-    }
-
-    @Test
-    public void testNewSin() {
         Sin spiderSin = new Sin("I killed a spider", "Matty", "I stomp on him");
         fillDataAndSubmit(spiderSin);
 
         spiderSin.setTags(List.of(SinType.MURDER, SinType.BLACKMAIL, SinType.ROBBERY));
         markTags(spiderSin.getTags());
-    }
-
-    @After
-    public void tearDown() {
-//        driver.quit();
     }
 
     public void fillDataAndSubmit(Sin sin) {

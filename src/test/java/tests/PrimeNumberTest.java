@@ -1,38 +1,26 @@
 package tests;
 
+import base.TestBase;
 import helpers.ExcelReader;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.IOException;
 import java.time.Duration;
 
-public class PrimeNumberTest {
+public class PrimeNumberTest extends TestBase {
 
-    private WebDriver driver;
-    private final String BASE_URL = "http://localhost/primenumber.php";
     private final String TEST_DATA_PATH = "src/test/resources/data/data.xlsx";
     private final String SHEET_NAME = "prime";
 
-
-    @Before
-    public void setUp() {
-        System.setProperty("webdriver.chrome.driver", "src/test/resources/drivers/chromedriver.exe");
-        driver = new ChromeDriver();
-        driver.get(BASE_URL);
-    }
-
     @Test
     public void primeTest() throws IOException {
+        driver.get(BASE_URL + "primenumber.php");
         WebElement numberInput = driver.findElement(By.xpath("//input[@type='number']"));
         WebElement primeButton = driver.findElement(By.xpath("//button[contains(@class, 'btn-danger')]"));
         ExcelReader excelReader = new ExcelReader(TEST_DATA_PATH);
@@ -52,11 +40,6 @@ public class PrimeNumberTest {
 
             checkResult(expectedValue);
         }
-    }
-
-    @After
-    public void tearDown() {
-        driver.quit();
     }
 
     public void checkResult(boolean expectedValue) {

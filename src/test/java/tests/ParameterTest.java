@@ -1,14 +1,12 @@
 package tests;
 
+import base.TestBase;
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -17,13 +15,10 @@ import java.util.Arrays;
 import java.util.List;
 
 @RunWith(Parameterized.class)
-public class ParameterTest {
+public class ParameterTest extends TestBase {
 
-    private WebDriver driver;
     private int number;
     private boolean expectedValue;
-
-    private String BASE_URL = "http://localhost/primenumber.php";
 
     @Parameterized.Parameters
     public static List<Object[]> getData() {
@@ -35,15 +30,10 @@ public class ParameterTest {
        this.expectedValue = expectedValue;
     }
 
-    @Before
-    public void setUp() {
-        System.setProperty("webdriver.chrome.driver", "src/test/resources/drivers/chromedriver.exe");
-        driver = new ChromeDriver();
-        driver.get(BASE_URL);
-    }
-
     @Test
     public void primeTestWithParameters() {
+        driver.get(BASE_URL + "primenumber.php");
+
         WebElement numberInput = driver.findElement(By.xpath("//input[@type='number']"));
         WebElement primeButton = driver.findElement(By.xpath("//button[contains(@class, 'btn-danger')]"));
 

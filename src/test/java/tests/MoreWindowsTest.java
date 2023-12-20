@@ -1,32 +1,21 @@
 package tests;
 
-import org.junit.After;
-import org.junit.Before;
+import base.TestBase;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.Set;
 
-public class MoreWindowsTest {
-
-    private WebDriver driver;
-    private final String BASE_URL = "http://localhost/inception.php";
-
-    @Before
-    public void setUp() {
-        System.setProperty("webdriver.chrome.driver", "src/test/resources/drivers/chromedriver.exe");
-        driver = new ChromeDriver();
-        driver.get(BASE_URL);
-    }
+public class MoreWindowsTest extends TestBase {
 
     @Test
     public void testGoDeeper() throws InterruptedException {
+        driver.get(BASE_URL + "inception.php");
+
         WebElement deeperButton = driver.findElement(By.id("letsGoDeeper"));
         String parentWindowHandle = driver.getWindowHandle();
 
@@ -44,10 +33,5 @@ public class MoreWindowsTest {
         driver.close();
         driver.switchTo().window(parentWindowHandle);
         deeperButton.click();
-    }
-
-    @After
-    public void tearDown() {
-        driver.quit();
     }
 }
