@@ -1,9 +1,12 @@
 package tests;
 
+import categories.ReleaseTest;
+import categories.SmokeTest;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -26,6 +29,9 @@ public class WaitForMinionsTest {
         driver.get(BASE_URL);
     }
 
+    // We can assign one or more categories to our tests by @Category annotation
+    // We need to create class for each test category
+    @Category({ReleaseTest.class, SmokeTest.class})
     @Test
     public void waitForMinions() {
         int minionCount = 5;

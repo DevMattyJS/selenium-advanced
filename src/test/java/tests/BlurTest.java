@@ -1,8 +1,10 @@
 package tests;
 
+import categories.SmokeTest;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -24,6 +26,7 @@ public class BlurTest {
         driver.get(BASE_URL);
     }
 
+    @Category(SmokeTest.class)
     @Test
     public void blurTest() {
         WebElement blurField = driver.findElement(By.id("waitForBlur"));

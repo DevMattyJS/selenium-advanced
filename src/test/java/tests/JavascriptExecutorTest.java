@@ -1,8 +1,10 @@
 package tests;
 
+import categories.ReleaseTest;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -47,6 +49,7 @@ public class JavascriptExecutorTest{
         js.executeScript("window.scrollBy(0, "+bodyHeight+")");
     }
 
+    @Category(ReleaseTest.class)
     @Test
     public void testScrollToEndStepByStep() {
         long bodyHeight = (long) js.executeScript("return document.body.scrollHeight");

@@ -1,9 +1,11 @@
 package tests;
 
+import categories.SmokeTest;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -34,6 +36,7 @@ public class WaitForItTest {
         System.out.println(driver.findElement(By.id("waitForTextInput")).getAttribute("value"));
     }
 
+    @Category(SmokeTest.class)
     @Test
     public void waitForClass() {
         WebElement button = driver.findElement(By.id("startWaitForProperty"));
