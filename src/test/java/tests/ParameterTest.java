@@ -1,7 +1,6 @@
 package tests;
 
 import base.TestBase;
-import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -16,7 +15,7 @@ import java.util.List;
 
 @RunWith(Parameterized.class)
 public class ParameterTest extends TestBase {
-
+    
     private int number;
     private boolean expectedValue;
 
@@ -32,10 +31,10 @@ public class ParameterTest extends TestBase {
 
     @Test
     public void primeTestWithParameters() {
-        driver.get(BASE_URL + "primenumber.php");
-
-        WebElement numberInput = driver.findElement(By.xpath("//input[@type='number']"));
-        WebElement primeButton = driver.findElement(By.xpath("//button[contains(@class, 'btn-danger')]"));
+        getDriver().get(BASE_URL + "primenumber.php");
+        
+        WebElement numberInput = getDriver().findElement(By.xpath("//input[@type='number']"));
+        WebElement primeButton = getDriver().findElement(By.xpath("//button[contains(@class, 'btn-danger')]"));
 
         numberInput.clear();
         numberInput.sendKeys(String.valueOf(number));
@@ -44,17 +43,12 @@ public class ParameterTest extends TestBase {
         checkResult(expectedValue);
     }
 
-    @After
-    public void tearDown() {
-        driver.quit();
-    }
-
     public void checkResult(boolean expectedValue) {
         if (expectedValue) {
-            new WebDriverWait(driver, Duration.ofSeconds(5))
+            new WebDriverWait(getDriver(), Duration.ofSeconds(5))
                     .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='result text-center success']")));
         } else {
-            new WebDriverWait(driver, Duration.ofSeconds(5))
+            new WebDriverWait(getDriver(), Duration.ofSeconds(5))
                     .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='result text-center error']")));
         }
     }

@@ -17,7 +17,7 @@ public class JavascriptExecutorTest extends TestBase {
     @Test
     public void testHighlight() {
         initializeExecutorAndOpenBaseUrl();
-        List<WebElement> tableRows = driver.findElements(By.xpath("//table/tbody/tr"));
+        List<WebElement> tableRows = getDriver().findElements(By.xpath("//table/tbody/tr"));
         for (WebElement tableRow : tableRows) {
             if (tableRow.getText().contains("Enrigue")) {
                 highlight(tableRow);
@@ -28,7 +28,7 @@ public class JavascriptExecutorTest extends TestBase {
     @Test
     public void testScrollToEnd() {
         initializeExecutorAndOpenBaseUrl();
-        WebElement lastRow = driver.findElement(By.xpath("//table/tbody/tr[last()]"));
+        WebElement lastRow = getDriver().findElement(By.xpath("//table/tbody/tr[last()]"));
         js.executeScript("arguments[0].scrollIntoView()", lastRow);
     }
 
@@ -55,8 +55,8 @@ public class JavascriptExecutorTest extends TestBase {
     }
 
     private void initializeExecutorAndOpenBaseUrl() {
-        js = (JavascriptExecutor) driver;
-        driver.get(BASE_URL + "tabulka.php");
+        js = (JavascriptExecutor) getDriver();
+        getDriver().get(BASE_URL + "tabulka.php");
     }
 
 }

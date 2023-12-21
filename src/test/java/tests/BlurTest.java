@@ -17,11 +17,11 @@ public class BlurTest extends TestBase {
     @Category(SmokeTest.class)
     @Test
     public void blurTest() {
-        driver.get(BASE_URL + "waitforit.php");
-        WebElement blurField = driver.findElement(By.id("waitForBlur"));
+        getDriver().get(BASE_URL + "waitforit.php");
+        WebElement blurField = getDriver().findElement(By.id("waitForBlur"));
         blurField.sendKeys("wait for it");
-        ((JavascriptExecutor) driver).executeScript("arguments[0].blur()", blurField);
-        new WebDriverWait(driver, Duration.ofSeconds(5))
+        ((JavascriptExecutor) getDriver()).executeScript("arguments[0].blur()", blurField);
+        new WebDriverWait(getDriver(), Duration.ofSeconds(5))
                 .until(ExpectedConditions.attributeToBe(blurField, "value", "blured!"));
 
     }

@@ -21,16 +21,16 @@ public class WaitForMinionsTest extends TestBase {
     @Category({ReleaseTest.class, SmokeTest.class})
     @Test
     public void waitForMinions() {
-        driver.get(BASE_URL + "minions.php");
+        getDriver().get(BASE_URL + "minions.php");
 
         int minionCount = 5;
-        driver.findElement(By.xpath("//input[@type='number']")).sendKeys(String.valueOf(minionCount));
-        driver.findElement(By.xpath("//button[contains(@class, 'btn-warning')]")).click();
+        getDriver().findElement(By.xpath("//input[@type='number']")).sendKeys(String.valueOf(minionCount));
+        getDriver().findElement(By.xpath("//button[contains(@class, 'btn-warning')]")).click();
 
-        new WebDriverWait(driver, Duration.ofSeconds(10))
+        new WebDriverWait(getDriver(), Duration.ofSeconds(10))
                 .withMessage("Timeout waiting for number of elements to be " + minionCount)
                 .until(ExpectedConditions.numberOfElementsToBe(By.xpath("//div[@class='minions']//img"), minionCount));
-        List<WebElement> allMinions = driver.findElements(By.xpath("//div[@class='minions']//img"));
+        List<WebElement> allMinions = getDriver().findElements(By.xpath("//div[@class='minions']//img"));
         Assert.assertEquals(minionCount, allMinions.size());
 
     }

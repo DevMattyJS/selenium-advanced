@@ -18,11 +18,11 @@ public class SinCityTest extends TestBase {
 
     @Test
     public void testNewSin() {
-        driver.get(BASE_URL + "sincity.php");
-        titleField = driver.findElement(By.name("title"));
-        authorField = driver.findElement(By.name("author"));
-        messageField = driver.findElement(By.name("message"));
-        submitButton = driver.findElement(By.xpath("//form/button"));
+        getDriver().get(BASE_URL + "sincity.php");
+        titleField = getDriver().findElement(By.name("title"));
+        authorField = getDriver().findElement(By.name("author"));
+        messageField = getDriver().findElement(By.name("message"));
+        submitButton = getDriver().findElement(By.xpath("//form/button"));
 
         Sin spiderSin = new Sin("I killed a spider", "Matty", "I stomp on him");
         fillDataAndSubmit(spiderSin);
@@ -40,7 +40,7 @@ public class SinCityTest extends TestBase {
 
     public void markTags(List<SinType> tags) {
         for (SinType tag : tags) {
-            driver.findElement(By.xpath("//input[@value='"+tag.getXpathValue()+"']")).click();
+            getDriver().findElement(By.xpath("//input[@value='"+tag.getXpathValue()+"']")).click();
         }
     }
 }

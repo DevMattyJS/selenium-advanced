@@ -14,24 +14,24 @@ public class MoreWindowsTest extends TestBase {
 
     @Test
     public void testGoDeeper() throws InterruptedException {
-        driver.get(BASE_URL + "inception.php");
+        getDriver().get(BASE_URL + "inception.php");
 
-        WebElement deeperButton = driver.findElement(By.id("letsGoDeeper"));
-        String parentWindowHandle = driver.getWindowHandle();
+        WebElement deeperButton = getDriver().findElement(By.id("letsGoDeeper"));
+        String parentWindowHandle = getDriver().getWindowHandle();
 
         deeperButton.click();
-        new WebDriverWait(driver, Duration.ofSeconds(5))
+        new WebDriverWait(getDriver(), Duration.ofSeconds(5))
                 .until(ExpectedConditions.numberOfWindowsToBe(2));
 
-        Set<String> allWindowHandles = driver.getWindowHandles();
+        Set<String> allWindowHandles = getDriver().getWindowHandles();
         for (String windowHandle : allWindowHandles) {
-            driver.switchTo().window(windowHandle);
+            getDriver().switchTo().window(windowHandle);
         }
 
-        driver.findElement(By.xpath("//input[1]")).sendKeys("Hello second window");
+        getDriver().findElement(By.xpath("//input[1]")).sendKeys("Hello second window");
         Thread.sleep(3000);         // just to be able to see the result
-        driver.close();
-        driver.switchTo().window(parentWindowHandle);
+        getDriver().close();
+        getDriver().switchTo().window(parentWindowHandle);
         deeperButton.click();
     }
 }

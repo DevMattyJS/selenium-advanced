@@ -20,9 +20,9 @@ public class PrimeNumberTest extends TestBase {
 
     @Test
     public void primeTest() throws IOException {
-        driver.get(BASE_URL + "primenumber.php");
-        WebElement numberInput = driver.findElement(By.xpath("//input[@type='number']"));
-        WebElement primeButton = driver.findElement(By.xpath("//button[contains(@class, 'btn-danger')]"));
+        getDriver().get(BASE_URL + "primenumber.php");
+        WebElement numberInput = getDriver().findElement(By.xpath("//input[@type='number']"));
+        WebElement primeButton = getDriver().findElement(By.xpath("//button[contains(@class, 'btn-danger')]"));
         ExcelReader excelReader = new ExcelReader(TEST_DATA_PATH);
         Sheet primeSheet = excelReader.getSheetByName(SHEET_NAME);
 
@@ -44,10 +44,10 @@ public class PrimeNumberTest extends TestBase {
 
     public void checkResult(boolean expectedValue) {
         if (expectedValue) {
-            new WebDriverWait(driver, Duration.ofSeconds(5))
+            new WebDriverWait(getDriver(), Duration.ofSeconds(5))
                     .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='result text-center success']")));
         } else {
-            new WebDriverWait(driver, Duration.ofSeconds(5))
+            new WebDriverWait(getDriver(), Duration.ofSeconds(5))
                     .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='result text-center error']")));
         }
     }
