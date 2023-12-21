@@ -11,12 +11,14 @@ public class Sin {
     private String author;
     private String message;
     private List<SinType> tags;
+    private boolean forgiven;
 
     public Sin(String title, String author, String message) {
         this.title = title;
         this.author = author;
         this.message = message;
         tags = new ArrayList<>();
+        forgiven = false;
     }
 
     public String getTitle() {

@@ -18,6 +18,7 @@ public class SinCityTest extends TestBase {
         sinCityPage.openPage();
         spiderSin.setTags(List.of(SinType.MURDER, SinType.BLACKMAIL, SinType.ROBBERY));
         sinCityPage.fillSinDataAndConfess(spiderSin, spiderSin.getTags());
-        sinCityPage.openSinDetail(spiderSin);
+        sinCityPage.verifySinStatus(spiderSin, "pending");
+        sinCityPage.verifySinDetail(spiderSin);
     }
 }
