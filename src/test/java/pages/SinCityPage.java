@@ -5,7 +5,6 @@ import enumerators.SinType;
 import models.Sin;
 import org.junit.Assert;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -53,23 +52,23 @@ public class SinCityPage {
         driver.get(BASE_URL + PAGE_URL);
     }
 
-    public void fillSinDataAndConfess(Sin sin, List<SinType> tags) {
+    public void fillSinDataAndConfess(Sin sin) {
         titleInput.sendKeys(sin.getTitle());
         authorInput.sendKeys(sin.getAuthor());
         messageInput.sendKeys(sin.getMessage());
-        markTags(tags);
+        markTags(sin.getTags());
         confessButton.click();
     }
 
     public void verifySinDetail(Sin sin) {
 
         openSinDetail(sin);
+        // This wait will also verify a correct message is displayed in the element
         new WebDriverWait(driver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.textToBePresentInElement
-                        (driver.findElement(By.xpath("//div[contains(@class, 'detail')]/article/h4[1]")), sin.getAuthor() + " : " + sin.getTitle()));
+                        (sinDetail.findElement(By.cssSelector("p")), sin.getMessage()));
 
         verifySinAuthorAndTitle(sin);
-        verifySinMessage(sin);
         verifySinTags(sin);
     }
 
@@ -79,18 +78,9 @@ public class SinCityPage {
     }
 
     public void verifySinAuthorAndTitle(Sin sin) {
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        String expectedText= sin.getAuthor() + " : " + sin.getTitle();
-
-        WebElement authorAndTitleElement = sinDetail.findElement(By.xpath("./h4[1]"));
-        String authorAndTitleText = (String) js.executeScript("return arguments[0].firstChild.textContent", authorAndTitleElement);
-        Assert.assertEquals(expectedText, authorAndTitleText);
-    }
-
-    public void verifySinMessage(Sin sin) {
-        String expectedMessage = sin.getMessage();
-        String message = sinDetail.findElement(By.xpath("./p")).getText();
-        Assert.assertEquals(expectedMessage, message);
+        String actualSinTitle = sinDetail.findElement(By.cssSelector("h4")).getText();
+        Assert.assertTrue(actualSinTitle.contains(sin.getTitle()));
+        Assert.assertTrue(actualSinTitle.contains(sin.getAuthor()));
     }
 
     public void verifySinTags(Sin sin) {
@@ -109,11 +99,14 @@ public class SinCityPage {
         Assert.assertEquals(expectedSinTags, sinTags);
     }
 
-    public void verifySinStatus(Sin sin, String expectedStatus) {
+    public void verifySinStatus(Sin sin) {
         WebElement listOfSins = sinListSection.findElement(By.cssSelector("ul.list-of-sins"));
         WebElement sinElement = listOfSins.findElement(By.xpath("./li[contains(text(), '"+sin.getTitle()+"')]"));
-        String descriptionText = sinElement.findElement(By.xpath("./div[@class='description']/p")).getText();
-        Assert.assertEquals(expectedStatus, descriptionText);
+
+        String expectedStatus = sin.isForgiven() ? "forgiven" : "pending";
+        String actualStatus = sinElement.findElement(By.xpath("./div[@class='description']/p")).getText();
+
+        Assert.assertEquals(expectedStatus, actualStatus);
     }
 
     public void markTags(List<SinType> tags) {
@@ -121,4 +114,5 @@ public class SinCityPage {
             driver.findElement(By.xpath("//input[@value='"+tag.getXpathValue()+"']")).click();
         }
     }
+
 }

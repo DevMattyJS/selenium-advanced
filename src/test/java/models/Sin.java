@@ -40,4 +40,12 @@ public class Sin {
     public void setTags(List<SinType> tags) {
         this.tags = tags;
     }
+
+    public boolean isForgiven() {
+        return forgiven;
+    }
+
+    public void setForgiven(boolean forgiven) {
+        this.forgiven = forgiven;
+    }
 }
