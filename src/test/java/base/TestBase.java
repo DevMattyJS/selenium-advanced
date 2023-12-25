@@ -6,15 +6,16 @@ import org.openqa.selenium.WebDriver;
 
 public class TestBase {
 
-    public static final String BASE_URL = "http://localhost/";
+    public static final String BASE_URL = "http://localhost:50/";
 
     @Before
     public void setUp() {
+        WebDriverSingleton.initialize();
     }
 
     @After
     public void tearDown() {
-//        WebDriverSingleton.getWebDriverInstance().quit();
+        WebDriverSingleton.getWebDriverInstance().quit();
     }
 
     public WebDriver getDriver() {
