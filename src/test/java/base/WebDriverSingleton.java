@@ -9,22 +9,23 @@ import java.net.URL;
 
 public class WebDriverSingleton {
 
-    private static WebDriver driver;
-    static void initialize() {
+    private  WebDriver driver;
+
+    private static WebDriverSingleton instance;
+    void initialize() {
 //        System.setProperty("webdriver.chrome.driver", "src/test/resources/drivers/chromedriver.exe");
 //        driver = new ChromeDriver();
         initializeSeleniumServer();
     }
 
-    public static WebDriver getWebDriverInstance() {
-        if (driver == null) {
-            initialize();
+    public static WebDriverSingleton getInstance() {
+        if (instance == null) {
+            instance = new WebDriverSingleton();
         }
-
-        return driver;
+        return instance;
     }
 
-    public static void initializeSeleniumServer() {
+    public void initializeSeleniumServer() {
         URL url = null;
         try {
             url = new URL("http://localhost:4444/wd/hub");
@@ -36,4 +37,7 @@ public class WebDriverSingleton {
         driver = new RemoteWebDriver(url, options);
     }
 
+    public WebDriver getDriver() {
+        return driver;
+    }
 }

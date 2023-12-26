@@ -10,15 +10,15 @@ public class TestBase {
 
     @Before
     public void setUp() {
-        WebDriverSingleton.initialize();
+        WebDriverSingleton.getInstance().initialize();
     }
 
     @After
     public void tearDown() {
-        WebDriverSingleton.getWebDriverInstance().quit();
+        WebDriverSingleton.getInstance().getDriver().quit();
     }
 
     public WebDriver getDriver() {
-        return WebDriverSingleton.getWebDriverInstance();
+        return WebDriverSingleton.getInstance().getDriver();
     }
 }

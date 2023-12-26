@@ -22,7 +22,7 @@ public class SpartaPage {
     private final String PAGE_URL = "sparta.php";
 
     public SpartaPage() {
-        this.driver = WebDriverSingleton.getWebDriverInstance();
+        this.driver = WebDriverSingleton.getInstance().getDriver();
         PageFactory.initElements(driver, this);
     }
 

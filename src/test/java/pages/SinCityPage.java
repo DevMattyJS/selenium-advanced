@@ -43,7 +43,7 @@ public class SinCityPage {
     private WebElement sinDetail;
 
     public SinCityPage() {
-        this.driver = WebDriverSingleton.getWebDriverInstance();
+        this.driver = WebDriverSingleton.getInstance().getDriver();
         // Initialize all elements defined at this page
         PageFactory.initElements(driver, this);
     }
